@@ -1,9 +1,13 @@
-# Challenge: Echo
+## Echo Challenge
 
-You hear something, but it's faint... maybe in the static?
+In this challenge, you need to extract the hidden flag from the image file `echo.png`. The flag is encoded using LSB steganography.
 
-**File:** `echo.png`  
-**Category:** Steganography  
-**Difficulty:** Easy  
+### Steps:
+1. Decode the image using your favorite tools (e.g., Python with PIL).
+2. The flag will be a dynamically generated string based on the input you provide to the challenge.
+3. Submit the decoded flag in the format `FLAG{your_flag_here}`.
 
-Find the hidden message. Submit the flag in the format: `FLAG{...}`
+Once you find the correct flag, enter it into the program to validate and move on to the next challenge.
+
+### Hint:
+The flag is dynamically generated based on a secret string. Try different possible inputs.

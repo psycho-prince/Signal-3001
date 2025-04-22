@@ -1,12 +1,36 @@
+# generate_waves.py
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 from scipy.io.wavfile import write
+from dotenv import load_dotenv
+import os
 
-TEXT = "FLAG{sound_waves_reveal_truth}"
+# Load environment variables
+load_dotenv()
+STATIC_FLAG = os.getenv("WAVES_FLAG", "CTF{default_waves}")  # Fallback if not set
+
+PROGRESS_FILE = "progress.txt"
 FONT_SIZE = 40
 IMG_SIZE = (800, 200)
 DURATION = 5  # seconds
 SAMPLE_RATE = 44100
+
+# Dependency checks
+try:
+    import PIL
+except ImportError:
+    print("Please install Pillow: pip install Pillow")
+    exit(1)
+try:
+    import numpy
+except ImportError:
+    print("Please install numpy: pip install numpy")
+    exit(1)
+try:
+    from scipy.io.wavfile import write
+except ImportError:
+    print("Please install scipy: pip install scipy")
+    exit(1)
 
 def text_to_image(text):
     img = Image.new("L", IMG_SIZE, color=0)
@@ -27,9 +51,30 @@ def image_to_wave(img):
     signal = np.tile(waveform, int(SAMPLE_RATE * DURATION / len(waveform)))
     return np.int16(signal * 32767)
 
-img = text_to_image(TEXT)
-wave = image_to_wave(img)
-write("waves.wav", SAMPLE_RATE, wave)
-img.save("spectrogram_hint.png")  # Optional: Visual hint file
+def update_progress():
+    with open(PROGRESS_FILE, "a") as f:
+        if "Waves challenge: Cleared" not in f.read():
+            f.write("Waves challenge: Cleared\n")
 
-print("✅ WAV file and image hint generated.")
+def main():
+    print("[?] Enter challenge name to generate :", end=" ")
+    try:
+        user_input = input().strip()
+    except KeyboardInterrupt:
+        print("\n[-] Interrupted by user.")
+        return
+
+    if user_input.lower() in ["waves", "sound", "truth"]:
+        img = text_to_image(STATIC_FLAG)
+        wave = image_to_wave(img)
+        write("waves.wav", SAMPLE_RATE, wave)
+        img.save("spectrogram_hint.png")  # Visual hint file
+        update_progress()
+        print("[✓] WAV file and image hint generated.")
+        print("[+] Flag is correct!")
+    else:
+        print("[x] Invalid input. Try again.")
+        print("[HINT] Analyze the spectrogram of waves.wav or the hint image to find the flag.")
+
+if __name__ == "__main__":
+    main()

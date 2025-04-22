@@ -1,0 +1,55 @@
+# generate_cover.py
+from PIL import Image
+import numpy as np
+
+STATIC_FLAG = "CTF{gojosatoru}"
+PROGRESS_FILE = "progress.txt"
+IMAGE_PATH = "cover_image1.png"
+ENCODED_IMAGE = "encoded_cover_image.png"
+
+def encode_flag_in_image(image_path, flag):
+    img = Image.open(image_path).convert("RGB")
+    pixels = np.array(img)
+    flat_pixels = pixels.flatten()
+    binary_flag = ''.join(format(ord(c), '08b') for c in flag)
+
+    if len(binary_flag) > len(flat_pixels):
+        raise ValueError("Flag too long for this image.")
+
+    for i, bit in enumerate(binary_flag):
+        # Get the current pixel value
+        current_pixel = flat_pixels[i]
+
+        # Clear the LSB and set it to the flag bit (corrected masking)
+        new_pixel = (current_pixel & 0xFE) | int(bit)
+
+        # Ensure new pixel value is within uint8 range (0-255)
+        new_pixel = max(0, min(255, new_pixel))
+
+        flat_pixels[i] = new_pixel
+
+    new_pixels = flat_pixels.reshape(pixels.shape)
+    Image.fromarray(new_pixels.astype(np.uint8)).save(ENCODED_IMAGE)
+
+def update_progress():
+    with open(PROGRESS_FILE, "a") as f:
+        f.write("Cover challenge: Cleared\n")
+
+def run():
+    print("[?] Enter challenge name to generate :", end=" ")
+    try:
+        user_input = input().strip()
+    except KeyboardInterrupt:
+        print("\n[-] User interrupted input.")
+        return
+
+    if user_input.lower() in ["cover", "gojo", "satoru"]:
+        encode_flag_in_image(IMAGE_PATH, STATIC_FLAG)
+        update_progress()
+        print("[✓] Flag encoded into encoded_cover_image.png")
+        print("[+] Flag is correct!")
+    else:
+        print("[x] Invalid input. Try again.")
+
+if __name__ == "__main__":
+    run()

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page not found</title>
+        <meta charset="utf-8"/>
+        <meta name=viewport content="width=device-width, initial-scale=1" />
+    </head>
+    <body>
+        <ul id="p4p-scene" class="p4p-desert-scene">
+            <li class="layer" data-depth="0.00">
+                <div class="p4p-parallax-background"></div>
+            </li>
+            <li class="layer" data-depth="0.10">
+                <div class="p4p-parallax-background"></div>
+            </li>
+            <li class="layer" data-depth="0.20">
+                <div class="p4p-parallax-background"></div>
+            </li>
+            <li class="layer" data-depth="0.30">
+                <div class="p4p-parallax-background"></div>
+            </li>
+            <li class="layer" data-depth="0.40">
+                <div class="p4p-parallax-background"></div>
+            </li>
+            <li class="layer" data-depth="0.50">
+                <div class="p4p-parallax-background"></div>
+            </li>
+            <li class="layer" data-depth="0.70">
+                <div class="p4p-parallax-background"></div>
+            </li>
+            <li class="layer" data-depth="0.90">
+                <div class="p4p-parallax-background"></div>
+            </li>
+            <li class="layer" data-depth="0">
+                <div class="p4p-text-layer">
+                    <h1><span>Whoops!</span>Looks like you've ventured too far into the desert.</h1>
+                    <p>The page you were looking for could not be found. <a href="/">Head back home</a>, or</p>
+           <form class='search-form' action="/search.php">
+                <input  name="searchterm" type='text' placeholder='Search' id='search'/>
+                <input name="lang" type="hidden"  value="en">
+             </form>
+               
+                </div>
+            </li>
+        </ul>
+        
+        <link rel="stylesheet" href="/error/assets/css/desert.min.css" />
+        <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+        <script src="/error/assets/js/parallax.min.js"></script>
+        <script src="/error/assets/js/desert.min.js"></script>
+    </body>
+</html>
+
+
+

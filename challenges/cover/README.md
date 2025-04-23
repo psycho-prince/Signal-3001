@@ -10,6 +10,6 @@ There are hidden bits within the image that need to be extracted to retrieve the
 Write a program or use existing tools to find and decode the hidden flag.
 
 ## Files:
-- `cover_image.png` - The image with hidden data
+- `****' - The image with hidden data
 
 Good luck!
